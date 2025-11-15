@@ -1,4 +1,6 @@
-import React from 'react';
+import AnalyticsOverview from './pages/admin/AnalyticsOverview';
+import SchoolPerformance from './pages/admin/SchoolPerformance';
+import UserActivity from './pages/admin/UserActivity';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
@@ -13,6 +15,7 @@ import Students from './pages/Students';
 import Layout from './components/Layout';
 import Unauthorized from './pages/Unauthorized';
 import './App.css';
+
 
 // Protected route that requires authentication
 const ProtectedRoute = ({ children }) => {
@@ -77,7 +80,7 @@ function App() {
               </ProtectedRoute>
             } />
             
-            {/* Role-Specific Dashboard Routes */}
+            {/* Role-Specific Dashboard Routes with Layout */}
             <Route path="/admin/dashboard" element={
               <RoleProtectedRoute allowedRoles={['admin']}>
                 <Layout>
@@ -114,6 +117,40 @@ function App() {
               <RoleProtectedRoute allowedRoles={['parent']}>
                 <Layout>
                   <ParentDashboard />
+                </Layout>
+              </RoleProtectedRoute>
+            } />
+            
+            {/* Admin Management Routes */}
+            <Route path="/admin/management/schools" element={
+              <RoleProtectedRoute allowedRoles={['admin']}>
+                <Layout>
+                  <div className="p-6">
+                    <h1 className="text-2xl font-bold text-gray-900">Schools Management</h1>
+                    <p className="text-gray-600">Manage all schools in the system</p>
+                  </div>
+                </Layout>
+              </RoleProtectedRoute>
+            } />
+            
+            <Route path="/admin/management/users" element={
+              <RoleProtectedRoute allowedRoles={['admin']}>
+                <Layout>
+                  <div className="p-6">
+                    <h1 className="text-2xl font-bold text-gray-900">Users Management</h1>
+                    <p className="text-gray-600">Manage system users</p>
+                  </div>
+                </Layout>
+              </RoleProtectedRoute>
+            } />
+            
+            <Route path="/admin/system/health" element={
+              <RoleProtectedRoute allowedRoles={['admin']}>
+                <Layout>
+                  <div className="p-6">
+                    <h1 className="text-2xl font-bold text-gray-900">System Health</h1>
+                    <p className="text-gray-600">Monitor system performance</p>
+                  </div>
                 </Layout>
               </RoleProtectedRoute>
             } />

@@ -44,6 +44,9 @@ export const analyticsService = {
   getStudentProgress: (params) => api.get('/analytics/student-progress', { params }),
   getAtRiskStudents: (params) => api.get('/analytics/at-risk-students', { params }),
   getSchoolOverview: () => api.get('/analytics/school-overview'),
+  getSystemOverview: () => api.get('/admin/analytics/overview'), // For admin system overview
+  getSchoolPerformance: () => api.get('/admin/analytics/schools'), // For admin school performance
+  getUserActivity: () => api.get('/admin/analytics/activity'), // For admin user activity
 };
 
 export const gradesService = {
@@ -70,10 +73,26 @@ export const schoolService = {
   verifyParent: (parentId, data) => api.put(`/schools/parent-requests/${parentId}/verify`, data)
 };
 
-// ADD THE MISSING SERVICES HERE:
-
 export const adminService = {
   getStats: (params) => api.get('/admin/stats', { params }),
+  
+  getSchools: (params) => api.get('/admin/schools', { params }),
+  getSchool: (schoolId) => api.get(`/admin/schools/${schoolId}`),
+  updateSubscription: (schoolId, data) => api.put(`/admin/schools/${schoolId}/subscription`, data),
+  
+  getUsers: (params) => api.get('/admin/users', { params }),
+  
+  getAuditLogs: (params) => api.get('/admin/audit-logs', { params }),
+  
+  getHealth: () => api.get('/admin/health'),
+  
+  createBackup: (data) => api.post('/admin/backup', data),
+  
+  export: (params) => api.get('/admin/export', { 
+    params,
+    responseType: 'blob'
+  }),
+  
   getRecentActivity: () => api.get('/admin/activity'),
   getSystemHealth: () => api.get('/admin/health'),
 };
